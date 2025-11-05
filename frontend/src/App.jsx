@@ -21,6 +21,7 @@ import MedicalRecordDetails from "./components/records/MedicalRecordDetails.jsx"
 import PatientAppointments from "./components/patients/PatientAppointments.jsx";
 import PatientRecords from "./components/patients/PatientRecords.jsx";
 import PatientProfile from "./components/patients/PatientProfile.jsx";
+import BookAppointment from "./components/patients/BookAppointment.jsx";
 
 // Protected Route Component
 const ProtectedRoute = ({ children, allowedRoles }) => {
@@ -146,6 +147,16 @@ function App() {
                 <ProtectedRoute allowedRoles={["patient"]}>
                   <PatientDashboard>
                     <PatientProfile />
+                  </PatientDashboard>
+                </ProtectedRoute>
+              }
+            />
+            <Route
+              path="/dashboard/patient/appointments/book"
+              element={
+                <ProtectedRoute allowedRoles={["patient"]}>
+                  <PatientDashboard>
+                    <BookAppointment />
                   </PatientDashboard>
                 </ProtectedRoute>
               }

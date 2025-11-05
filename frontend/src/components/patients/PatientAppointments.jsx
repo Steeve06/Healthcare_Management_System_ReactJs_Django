@@ -1,16 +1,19 @@
 import { useState, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 import { useAuth } from "../../contexts/AuthContext";
-import { Calendar, Clock, User, MapPin, Phone } from "lucide-react";
+import { Calendar, Clock, User, Plus } from "lucide-react";
 import api from "../../services/api";
 
 const PatientAppointments = () => {
   const { user } = useAuth();
+  const navigate = useNavigate();
   const [appointments, setAppointments] = useState([]);
   const [loading, setLoading] = useState(true);
   const [filter, setFilter] = useState("upcoming");
 
   useEffect(() => {
     fetchAppointments();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [filter]);
 
   const fetchAppointments = async () => {
@@ -70,38 +73,49 @@ const PatientAppointments = () => {
       <div className="flex items-center justify-between">
         <h2 className="text-3xl font-bold text-white">My Appointments</h2>
 
-        {/* Filter Tabs */}
-        <div className="flex space-x-2 bg-gray-800 border border-gray-700 rounded-lg p-1">
+        <div className="flex items-center space-x-3">
+          {/* Book Appointment Button */}
           <button
-            onClick={() => setFilter("upcoming")}
-            className={`px-4 py-2 rounded-lg text-sm font-medium transition-colors ${
-              filter === "upcoming"
-                ? "bg-blue-600 text-white"
-                : "text-gray-400 hover:text-white"
-            }`}
+            onClick={() => navigate("/dashboard/patient/appointments/book")}
+            className="flex items-center space-x-2 px-4 py-2 bg-blue-600 hover:bg-blue-700 text-white rounded-lg transition-colors"
           >
-            Upcoming
+            <Plus className="h-5 w-5" />
+            <span>Book Appointment</span>
           </button>
-          <button
-            onClick={() => setFilter("past")}
-            className={`px-4 py-2 rounded-lg text-sm font-medium transition-colors ${
-              filter === "past"
-                ? "bg-blue-600 text-white"
-                : "text-gray-400 hover:text-white"
-            }`}
-          >
-            Past
-          </button>
-          <button
-            onClick={() => setFilter("all")}
-            className={`px-4 py-2 rounded-lg text-sm font-medium transition-colors ${
-              filter === "all"
-                ? "bg-blue-600 text-white"
-                : "text-gray-400 hover:text-white"
-            }`}
-          >
-            All
-          </button>
+
+          {/* Filter Tabs */}
+          <div className="flex space-x-2 bg-gray-800 border border-gray-700 rounded-lg p-1">
+            <button
+              onClick={() => setFilter("upcoming")}
+              className={`px-4 py-2 rounded-lg text-sm font-medium transition-colors ${
+                filter === "upcoming"
+                  ? "bg-blue-600 text-white"
+                  : "text-gray-400 hover:text-white"
+              }`}
+            >
+              Upcoming
+            </button>
+            <button
+              onClick={() => setFilter("past")}
+              className={`px-4 py-2 rounded-lg text-sm font-medium transition-colors ${
+                filter === "past"
+                  ? "bg-blue-600 text-white"
+                  : "text-gray-400 hover:text-white"
+              }`}
+            >
+              Past
+            </button>
+            <button
+              onClick={() => setFilter("all")}
+              className={`px-4 py-2 rounded-lg text-sm font-medium transition-colors ${
+                filter === "all"
+                  ? "bg-blue-600 text-white"
+                  : "text-gray-400 hover:text-white"
+              }`}
+            >
+              All
+            </button>
+          </div>
         </div>
       </div>
 
@@ -112,7 +126,13 @@ const PatientAppointments = () => {
       ) : appointments.length === 0 ? (
         <div className="text-center py-12">
           <Calendar className="h-16 w-16 mx-auto mb-4 text-gray-600" />
-          <p className="text-gray-400">No appointments found</p>
+          <p className="text-gray-400 mb-4">No appointments found</p>
+          <button
+            onClick={() => navigate("/dashboard/patient/appointments/book")}
+            className="px-6 py-3 bg-blue-600 hover:bg-blue-700 text-white rounded-lg transition-colors"
+          >
+            Book Your First Appointment
+          </button>
         </div>
       ) : (
         <div className="grid grid-cols-1 gap-4">
