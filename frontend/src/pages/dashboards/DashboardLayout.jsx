@@ -43,7 +43,11 @@ const DashboardLayout = ({ children, role }) => {
         label: "Calendar",
         path: "/dashboard/doctor/appointments/calendar",
       }, // Different icon
-      { icon: FileText, label: "Medical Records", path: "/dashboard/doctor/records" },
+      {
+        icon: FileText,
+        label: "Medical Records",
+        path: "/dashboard/doctor/records",
+      },
     ],
     nurse: [
       { icon: Activity, label: "Dashboard", path: "/dashboard/nurse" },
@@ -75,6 +79,7 @@ const DashboardLayout = ({ children, role }) => {
         label: "Medical Records",
         path: "/dashboard/patient/records",
       },
+      { icon: Users, label: "My Profile", path: "/dashboard/patient/profile" },
     ],
   };
 
