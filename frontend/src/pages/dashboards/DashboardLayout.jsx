@@ -10,6 +10,7 @@ import {
   LogOut,
   Menu,
   X,
+  CalendarDays, // Add this import
 } from "lucide-react";
 
 const DashboardLayout = ({ children, role }) => {
@@ -37,6 +38,11 @@ const DashboardLayout = ({ children, role }) => {
         label: "Appointments",
         path: "/dashboard/doctor/appointments",
       },
+      {
+        icon: CalendarDays,
+        label: "Calendar",
+        path: "/dashboard/doctor/appointments/calendar",
+      }, // Different icon
       { icon: FileText, label: "Records", path: "/dashboard/doctor/records" },
     ],
     nurse: [
@@ -71,6 +77,7 @@ const DashboardLayout = ({ children, role }) => {
       },
     ],
   };
+
 
   const currentMenuItems = menuItems[role] || [];
 

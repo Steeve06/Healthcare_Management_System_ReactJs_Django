@@ -12,6 +12,9 @@ import NurseDashboard from "./pages/dashboards/NurseDashboard.jsx";
 import PatientDashboard from "./pages/dashboards/PatientDashboard.jsx";
 import PatientList from "./components/patients/PatientList.jsx";
 import PatientForm from "./components/patients/PatientForm.jsx";
+import AppointmentList from "./components/appointments/AppointmentList.jsx";
+import AppointmentForm from "./components/appointments/AppointmentForm.jsx";
+import AppointmentCalendar from "./components/appointments/AppointmentCalendar.jsx";
 
 // Protected Route Component
 const ProtectedRoute = ({ children, allowedRoles }) => {
@@ -99,6 +102,36 @@ function App() {
               element={
                 <ProtectedRoute allowedRoles={["patient"]}>
                   <PatientDashboard />
+                </ProtectedRoute>
+              }
+            />
+            <Route
+              path="/dashboard/doctor/appointments"
+              element={
+                <ProtectedRoute allowedRoles={["doctor"]}>
+                  <DoctorDashboard>
+                    <AppointmentList />
+                  </DoctorDashboard>
+                </ProtectedRoute>
+              }
+            />
+            <Route
+              path="/dashboard/doctor/appointments/new"
+              element={
+                <ProtectedRoute allowedRoles={["doctor"]}>
+                  <DoctorDashboard>
+                    <AppointmentForm />
+                  </DoctorDashboard>
+                </ProtectedRoute>
+              }
+            />
+            <Route
+              path="/dashboard/doctor/appointments/calendar"
+              element={
+                <ProtectedRoute allowedRoles={["doctor"]}>
+                  <DoctorDashboard>
+                    <AppointmentCalendar />
+                  </DoctorDashboard>
                 </ProtectedRoute>
               }
             />
