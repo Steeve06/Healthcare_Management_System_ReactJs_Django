@@ -241,12 +241,6 @@ const PatientDashboard = ({ children }) => {
                     {patientProfile.blood_group}
                   </span>
                 </div>
-                <div className="flex items-center justify-between">
-                  <span className="text-gray-400 text-sm">Gender</span>
-                  <span className="text-white capitalize">
-                    {patientProfile.gender}
-                  </span>
-                </div>
               </div>
 
               <div className="pt-4 border-t border-gray-700 space-y-2">

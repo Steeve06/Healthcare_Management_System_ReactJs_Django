@@ -56,17 +56,66 @@ const PatientProfile = () => {
     setSaving(true);
 
     try {
-      const response = await api.put(`/patients/${profile.id}/`, formData);
+      // Only send fields that should be editable
+      const updateData = {
+        first_name: formData.first_name,
+        last_name: formData.last_name,
+        date_of_birth: formData.date_of_birth,
+        gender: formData.gender,
+        blood_group: formData.blood_group,
+        email: formData.email,
+        phone: formData.phone,
+        address: formData.address,
+        city: formData.city,
+        state: formData.state,
+        zip_code: formData.zip_code,
+        emergency_contact_name: formData.emergency_contact_name,
+        emergency_contact_phone: formData.emergency_contact_phone,
+        emergency_contact_relation: formData.emergency_contact_relation,
+        allergies: formData.allergies,
+        chronic_conditions: formData.chronic_conditions,
+        current_medications: formData.current_medications,
+      };
+
+      console.log("Sending data:", updateData);
+
+      // Use PATCH instead of PUT
+      const response = await api.patch(`/patients/${profile.id}/`, updateData);
       setProfile(response.data);
+      setFormData(response.data);
       setEditing(false);
       alert("Profile updated successfully!");
     } catch (error) {
       console.error("Error updating profile:", error);
-      alert("Failed to update profile. Please try again.");
+      console.error("Error response:", error.response?.data);
+
+      let errorMessage = "Failed to update profile.\n\n";
+
+      if (error.response?.data) {
+        const errors = error.response.data;
+        if (typeof errors === "object") {
+          errorMessage += Object.entries(errors)
+            .map(([field, messages]) => {
+              const msg = Array.isArray(messages)
+                ? messages.join(", ")
+                : messages;
+              return `• ${field}: ${msg}`;
+            })
+            .join("\n");
+        } else {
+          errorMessage += errors;
+        }
+      } else {
+        errorMessage += "Please check your connection and try again.";
+      }
+
+      alert(errorMessage);
     } finally {
       setSaving(false);
     }
   };
+
+
 
   const handleCancel = () => {
     setFormData(profile);
