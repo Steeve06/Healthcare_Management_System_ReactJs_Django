@@ -11,10 +11,13 @@ import DoctorDashboard from "./pages/dashboards/DoctorDashboard.jsx";
 import NurseDashboard from "./pages/dashboards/NurseDashboard.jsx";
 import PatientDashboard from "./pages/dashboards/PatientDashboard.jsx";
 import PatientList from "./components/patients/PatientList.jsx";
+import PatientDetails from './components/patients/PatientDetails.jsx';
 import PatientForm from "./components/patients/PatientForm.jsx";
 import AppointmentList from "./components/appointments/AppointmentList.jsx";
 import AppointmentForm from "./components/appointments/AppointmentForm.jsx";
 import AppointmentCalendar from "./components/appointments/AppointmentCalendar.jsx";
+import MedicalRecordsList from "./components/records/MedicalRecordsList.jsx";
+import MedicalRecordDetails from "./components/records/MedicalRecordDetails.jsx";
 
 // Protected Route Component
 const ProtectedRoute = ({ children, allowedRoles }) => {
@@ -47,7 +50,6 @@ function App() {
           <Routes>
             <Route path="/" element={<LandingPage />} />
             <Route path="/login" element={<LoginPage />} />
-
             {/* Doctor Dashboard Routes */}
             <Route
               path="/dashboard/doctor"
@@ -87,13 +89,23 @@ function App() {
                 </ProtectedRoute>
               }
             />
-
             {/* Other role dashboards */}
             <Route
               path="/dashboard/nurse"
               element={
                 <ProtectedRoute allowedRoles={["nurse"]}>
                   <NurseDashboard />
+                </ProtectedRoute>
+              }
+            />
+            javascript
+            <Route
+              path="/dashboard/doctor/patients/:id"
+              element={
+                <ProtectedRoute allowedRoles={["doctor"]}>
+                  <DoctorDashboard>
+                    <PatientDetails />
+                  </DoctorDashboard>
                 </ProtectedRoute>
               }
             />
@@ -131,6 +143,26 @@ function App() {
                 <ProtectedRoute allowedRoles={["doctor"]}>
                   <DoctorDashboard>
                     <AppointmentCalendar />
+                  </DoctorDashboard>
+                </ProtectedRoute>
+              }
+            />
+            <Route
+              path="/dashboard/doctor/records"
+              element={
+                <ProtectedRoute allowedRoles={["doctor"]}>
+                  <DoctorDashboard>
+                    <MedicalRecordsList />
+                  </DoctorDashboard>
+                </ProtectedRoute>
+              }
+            />
+            <Route
+              path="/dashboard/doctor/records/:id"
+              element={
+                <ProtectedRoute allowedRoles={["doctor"]}>
+                  <DoctorDashboard>
+                    <MedicalRecordDetails />
                   </DoctorDashboard>
                 </ProtectedRoute>
               }

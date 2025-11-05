@@ -380,12 +380,12 @@ const DoctorDashboard = ({ children }) => {
               </span>
             </button>
             <button
-              onClick={() => navigate("/dashboard/doctor/patients")}
+              onClick={() => navigate("/dashboard/doctor/records")}
               className="flex flex-col items-center space-y-2 p-4 bg-orange-600 hover:bg-orange-700 rounded-lg transition-colors"
             >
               <FileText className="h-6 w-6 text-white" />
               <span className="text-white text-sm font-medium">
-                Patient Records
+                Medical Records
               </span>
             </button>
           </div>
