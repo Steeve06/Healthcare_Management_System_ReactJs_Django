@@ -2,9 +2,15 @@ import { useAuth } from "../../contexts/AuthContext";
 import DashboardLayout from "./DashboardLayout";
 import { Users, Calendar, FileText, Activity } from "lucide-react";
 
-const DoctorDashboard = () => {
+const DoctorDashboard = ({ children }) => {
   const { user } = useAuth();
 
+  // If children are passed, render them instead of default dashboard
+  if (children) {
+    return <DashboardLayout role="doctor">{children}</DashboardLayout>;
+  }
+
+  // Default dashboard content
   const stats = [
     { icon: Users, label: "Total Patients", value: "248", color: "blue" },
     {

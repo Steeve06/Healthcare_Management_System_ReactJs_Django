@@ -10,6 +10,8 @@ import LoginPage from "./pages/LoginPage.jsx";
 import DoctorDashboard from "./pages/dashboards/DoctorDashboard.jsx";
 import NurseDashboard from "./pages/dashboards/NurseDashboard.jsx";
 import PatientDashboard from "./pages/dashboards/PatientDashboard.jsx";
+import PatientList from "./components/patients/PatientList.jsx";
+import PatientForm from "./components/patients/PatientForm.jsx";
 
 // Protected Route Component
 const ProtectedRoute = ({ children, allowedRoles }) => {
@@ -43,7 +45,7 @@ function App() {
             <Route path="/" element={<LandingPage />} />
             <Route path="/login" element={<LoginPage />} />
 
-            {/* Dashboard Routes */}
+            {/* Doctor Dashboard Routes */}
             <Route
               path="/dashboard/doctor"
               element={
@@ -52,6 +54,38 @@ function App() {
                 </ProtectedRoute>
               }
             />
+            <Route
+              path="/dashboard/doctor/patients"
+              element={
+                <ProtectedRoute allowedRoles={["doctor"]}>
+                  <DoctorDashboard>
+                    <PatientList />
+                  </DoctorDashboard>
+                </ProtectedRoute>
+              }
+            />
+            <Route
+              path="/dashboard/doctor/patients/new"
+              element={
+                <ProtectedRoute allowedRoles={["doctor"]}>
+                  <DoctorDashboard>
+                    <PatientForm />
+                  </DoctorDashboard>
+                </ProtectedRoute>
+              }
+            />
+            <Route
+              path="/dashboard/doctor/patients/:id/edit"
+              element={
+                <ProtectedRoute allowedRoles={["doctor"]}>
+                  <DoctorDashboard>
+                    <PatientForm />
+                  </DoctorDashboard>
+                </ProtectedRoute>
+              }
+            />
+
+            {/* Other role dashboards */}
             <Route
               path="/dashboard/nurse"
               element={
@@ -68,27 +102,11 @@ function App() {
                 </ProtectedRoute>
               }
             />
-            <Route
-              path="/dashboard/receptionist"
-              element={
-                <ProtectedRoute allowedRoles={["receptionist"]}>
-                  <NurseDashboard />
-                </ProtectedRoute>
-              }
-            />
-            <Route
-              path="/dashboard/admin"
-              element={
-                <ProtectedRoute allowedRoles={["admin"]}>
-                  <DoctorDashboard />
-                </ProtectedRoute>
-              }
-            />
           </Routes>
         </Router>
       </AuthProvider>
     </div>
   );
 }
- 
+
 export default App;
