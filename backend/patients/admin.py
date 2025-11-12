@@ -3,10 +3,11 @@ from .models import Patient, MedicalRecord
 
 @admin.register(Patient)
 class PatientAdmin(admin.ModelAdmin):
-    list_display = ['patient_id', 'full_name', 'email', 'phone', 'blood_group', 'registered_date', 'is_active']
+    list_display = ['patient_id', 'full_name', 'email', 'phone', 'blood_group', 'registered_date', 'is_active', 'assigned_nurse']
     list_filter = ['blood_group', 'gender', 'is_active', 'registered_date']
     search_fields = ['patient_id', 'first_name', 'last_name', 'email', 'phone']
     readonly_fields = ['patient_id', 'registered_date', 'updated_at']
+    
     
     fieldsets = (
         ('Basic Information', {
@@ -20,6 +21,9 @@ class PatientAdmin(admin.ModelAdmin):
         }),
         ('Medical Information', {
             'fields': ('allergies', 'chronic_conditions', 'current_medications')
+        }),
+        ('Assignments', {
+            'fields': ('assigned_nurse',) 
         }),
         ('System Information', {
             'fields': ('user', 'registered_date', 'updated_at', 'is_active')

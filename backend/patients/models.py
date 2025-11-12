@@ -110,3 +110,13 @@ class MedicalRecord(models.Model):
     
     def __str__(self):
         return f"{self.patient.full_name} - {self.visit_date.date()}"
+
+
+class PatientAssignmentLog(models.Model):
+    patient = models.ForeignKey('Patient', on_delete=models.CASCADE, related_name='assignment_logs')
+    assigned_nurse = models.ForeignKey(User, null=True, blank=True, on_delete=models.SET_NULL, related_name='+')
+    assigned_by = models.ForeignKey(User, related_name='nurse_assignments_made', on_delete=models.SET_NULL, null=True)
+    timestamp = models.DateTimeField(auto_now_add=True)
+
+    def __str__(self):
+        return f'Assigned {self.assigned_nurse} to {self.patient} by {self.assigned_by} on {self.timestamp}'
