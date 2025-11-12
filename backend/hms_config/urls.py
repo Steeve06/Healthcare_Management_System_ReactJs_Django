@@ -9,8 +9,7 @@ urlpatterns = [
     path('api/', include('patients.urls')),
     path('api/', include('appointments.urls')),
     path('api/nurse-tasks/', include('nurse_tasks.urls')),
-
-# Add more app URLs as you build them
+    path('api/accounts/', include('accounts.urls')),
 ]
 
 if settings.DEBUG:

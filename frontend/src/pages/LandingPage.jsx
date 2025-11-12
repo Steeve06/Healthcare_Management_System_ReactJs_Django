@@ -58,7 +58,7 @@ const LandingPage = () => {
             Streamline your healthcare operations with our comprehensive management solution
           </p>
           <button
-            onClick={() => navigate('/login')}
+            onClick={() => navigate('/signup')}
             className="px-8 py-4 bg-blue-600 hover:bg-blue-700 text-white rounded-lg text-lg font-semibold transition-all transform hover:scale-105"
           >
             Get Started

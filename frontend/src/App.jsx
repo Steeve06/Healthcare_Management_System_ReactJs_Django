@@ -27,6 +27,7 @@ import NurseAppointmentsList from "./components/nurse/NurseAppointmentsList.jsx"
 import NurseSchedule from "./components/nurse/NurseSchedule.jsx";
 import NurseTasksList from "./components/nurse/NurseTaskList.jsx";
 import CreateNurseTask from "./components/nurse/CreateNurseTask.jsx";
+import PatientSignup from "./components/patients/PatientSignup.jsx"; 
 
 // Protected Route Component
 const ProtectedRoute = ({ children, allowedRoles }) => {
@@ -266,6 +267,7 @@ function App() {
                 </ProtectedRoute>
               }
             />
+            <Route path="/signup" element={<PatientSignup />} />
           </Routes>
         </Router>
       </AuthProvider>

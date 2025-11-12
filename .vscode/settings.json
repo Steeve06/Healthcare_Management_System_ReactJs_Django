@@ -29,6 +29,7 @@
     "corsheaders",
     "filterset",
     "lmjlamc",
+    "myhealth",
     "simplejwt",
     "viewsets",
     "Vite"

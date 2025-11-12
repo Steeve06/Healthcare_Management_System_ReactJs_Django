@@ -1,3 +1,4 @@
+from os import path
 from rest_framework.decorators import api_view, permission_classes
 from rest_framework import generics, status
 from rest_framework.response import Response
@@ -5,6 +6,7 @@ from rest_framework.permissions import AllowAny, IsAuthenticated
 from rest_framework_simplejwt.views import TokenObtainPairView
 from rest_framework_simplejwt.serializers import TokenObtainPairSerializer
 from .models import User
+from .serializers import PatientSignupSerializer
 from .serializers import UserSerializer, RegisterSerializer
 
 class CustomTokenObtainPairSerializer(TokenObtainPairSerializer):
@@ -15,6 +17,11 @@ class CustomTokenObtainPairSerializer(TokenObtainPairSerializer):
 
 class CustomTokenObtainPairView(TokenObtainPairView):
     serializer_class = CustomTokenObtainPairSerializer
+
+class PatientSignupView(generics.CreateAPIView):
+    serializer_class = PatientSignupSerializer
+    permission_classes = [AllowAny]  
+
 
 class RegisterView(generics.CreateAPIView):
     queryset = User.objects.all()
