@@ -2,29 +2,42 @@ from rest_framework import serializers
 from .models import User
 from django.contrib.auth.password_validation import validate_password
 from patients.models import Patient
+from django.contrib.auth import get_user_model
+
+User = get_user_model()
 
 class PatientSignupSerializer(serializers.ModelSerializer):
     password = serializers.CharField(write_only=True)
+
     class Meta:
-        model = User
-        fields = ['email', 'password', 'first_name', 'last_name']
+        model = Patient
+        fields = [
+            'first_name', 'last_name', 'date_of_birth', 'gender', 'blood_group',
+            'email', 'phone', 'address', 'city', 'state', 'zip_code',
+            'emergency_contact_name', 'emergency_contact_phone', 'emergency_contact_relation',
+            'allergies', 'chronic_conditions', 'current_medications', 'password'
+        ]
 
     def create(self, validated_data):
+        # Pop password for User creation
+        password = validated_data.pop('password')
+        email = validated_data.get('email')
+        first_name = validated_data.get('first_name')
+        last_name = validated_data.get('last_name')
+        
+        # Create User object (if Patient relates to User)
         user = User.objects.create_user(
-            email=validated_data['email'],
-            password=validated_data['password'],
-            first_name=validated_data['first_name'],
-            last_name=validated_data['last_name'],
-            role='patient'
+            username=email,
+            email=email,
+            password=password,
+            first_name=first_name,
+            last_name=last_name
         )
-        Patient.objects.create(
-            user=user,
-            first_name=user.first_name,
-            last_name=user.last_name,
-            email=user.email
-            
-        )
-        return user
+        
+        # Create Patient object with remaining validated data + user
+        patient = Patient.objects.create(user=user, **validated_data)
+        return patient
+
 class UserSerializer(serializers.ModelSerializer):
     class Meta:
         model = User
