@@ -10,7 +10,8 @@ import {
   LogOut,
   Menu,
   X,
-  CalendarDays, // Add this import
+  CalendarDays,
+  ShieldCheck, // Add this import
 } from "lucide-react";
 
 const DashboardLayout = ({ children, role }) => {
@@ -30,6 +31,7 @@ const DashboardLayout = ({ children, role }) => {
       { icon: FileText, label: "Reports", path: "/dashboard/admin/reports" },
       { icon: Settings, label: "Settings", path: "/dashboard/admin/settings" },
     ],
+
     doctor: [
       { icon: Activity, label: "Dashboard", path: "/dashboard/doctor" },
       { icon: Users, label: "Patients", path: "/dashboard/doctor/patients" },
@@ -49,24 +51,19 @@ const DashboardLayout = ({ children, role }) => {
         path: "/dashboard/doctor/records",
       },
     ],
+
     nurse: [
       { icon: Activity, label: "Dashboard", path: "/dashboard/nurse" },
       { icon: Users, label: "Patients", path: "/dashboard/nurse/patients" },
       { icon: Calendar, label: "Schedule", path: "/dashboard/nurse/schedule" },
-    ],
-    receptionist: [
-      { icon: Activity, label: "Dashboard", path: "/dashboard/receptionist" },
       {
         icon: Calendar,
         label: "Appointments",
-        path: "/dashboard/receptionist/appointments",
+        path: "/dashboard/nurse/appointments",
       },
-      {
-        icon: Users,
-        label: "Patients",
-        path: "/dashboard/receptionist/patients",
-      },
+      { icon: ShieldCheck, label: "Tasks", path: "/dashboard/nurse/tasks" },
     ],
+    
     patient: [
       { icon: Activity, label: "Dashboard", path: "/dashboard/patient" },
       {

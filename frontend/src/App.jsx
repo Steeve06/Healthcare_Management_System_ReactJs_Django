@@ -22,6 +22,11 @@ import PatientAppointments from "./components/patients/PatientAppointments.jsx";
 import PatientRecords from "./components/patients/PatientRecords.jsx";
 import PatientProfile from "./components/patients/PatientProfile.jsx";
 import BookAppointment from "./components/patients/BookAppointment.jsx";
+import NursePatientsList from "./components/nurse/NursePatientList.jsx";
+import NurseAppointmentsList from "./components/nurse/NurseAppointmentsList.jsx";
+import NurseSchedule from "./components/nurse/NurseSchedule.jsx";
+import NurseTasksList from "./components/nurse/NurseTaskList.jsx";
+import CreateNurseTask from "./components/nurse/CreateNurseTask.jsx";
 
 // Protected Route Component
 const ProtectedRoute = ({ children, allowedRoles }) => {
@@ -208,6 +213,56 @@ function App() {
                   <DoctorDashboard>
                     <MedicalRecordDetails />
                   </DoctorDashboard>
+                </ProtectedRoute>
+              }
+            />
+            <Route
+              path="/dashboard/nurse/patients"
+              element={
+                <ProtectedRoute allowedRoles={["nurse"]}>
+                  <NurseDashboard>
+                    <NursePatientsList />
+                  </NurseDashboard>
+                </ProtectedRoute>
+              }
+            />
+            <Route
+              path="/dashboard/nurse/appointments"
+              element={
+                <ProtectedRoute allowedRoles={["nurse"]}>
+                  <NurseDashboard>
+                    <NurseAppointmentsList />
+                  </NurseDashboard>
+                </ProtectedRoute>
+              }
+            />
+            <Route
+              path="/dashboard/nurse/schedule"
+              element={
+                <ProtectedRoute allowedRoles={["nurse"]}>
+                  <NurseDashboard>
+                    <NurseSchedule />
+                  </NurseDashboard>
+                </ProtectedRoute>
+              }
+            />
+            <Route
+              path="/dashboard/nurse/tasks"
+              element={
+                <ProtectedRoute allowedRoles={["nurse"]}>
+                  <NurseDashboard>
+                    <NurseTasksList />
+                  </NurseDashboard>
+                </ProtectedRoute>
+              }
+            />
+            <Route
+              path="/dashboard/nurse/tasks/new"
+              element={
+                <ProtectedRoute allowedRoles={["nurse"]}>
+                  <NurseDashboard>
+                    <CreateNurseTask />
+                  </NurseDashboard>
                 </ProtectedRoute>
               }
             />

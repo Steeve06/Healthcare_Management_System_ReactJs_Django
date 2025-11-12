@@ -34,6 +34,15 @@ class PatientViewSet(viewsets.ModelViewSet):
         appointments = patient.appointments.all()
         serializer = AppointmentListSerializer(appointments, many=True)
         return Response(serializer.data)
+    
+    @action(detail=False, methods=['get'], url_path='assigned-to-me')
+    def assigned_to_me(self, request):
+        nurse = request.user
+        if nurse.role != 'nurse':
+            return Response({'error': 'Forbidden'}, status=403)
+        patients = self.get_queryset().filter(assigned_nurse=nurse)
+        serializer = self.get_serializer(patients, many=True)
+        return Response(serializer.data)
 
 class MedicalRecordViewSet(viewsets.ModelViewSet):
     queryset = MedicalRecord.objects.all()

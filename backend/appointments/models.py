@@ -39,6 +39,13 @@ class Appointment(models.Model):
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
     
+    assigned_nurse = models.ForeignKey(
+        User, null=True, blank=True, 
+        on_delete=models.SET_NULL,
+        related_name='nurse_appointments',
+        limit_choices_to={'role': 'nurse'}
+    )
+    
     class Meta:
         ordering = ['appointment_date', 'appointment_time']
         unique_together = ['doctor', 'appointment_date', 'appointment_time']

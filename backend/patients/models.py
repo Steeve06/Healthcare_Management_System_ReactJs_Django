@@ -49,6 +49,13 @@ class Patient(models.Model):
     updated_at = models.DateTimeField(auto_now=True)
     is_active = models.BooleanField(default=True)
     
+    assigned_nurse = models.ForeignKey(
+        User, null=True, blank=True, 
+        on_delete=models.SET_NULL,
+        related_name='nurse_patients',
+        limit_choices_to={'role': 'nurse'}
+    )
+    
     class Meta:
         ordering = ['-registered_date']
         

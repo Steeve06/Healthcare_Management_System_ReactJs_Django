@@ -54,3 +54,17 @@ class AppointmentViewSet(viewsets.ModelViewSet):
         appointment.status = 'cancelled'
         appointment.save()
         return Response({'status': 'appointment cancelled'})
+    
+    @action(detail=False, methods=['get'], url_path='nurse-today')
+    def nurse_today(self, request):
+        import datetime
+        nurse = request.user
+        if nurse.role != 'nurse':
+            return Response({'error': 'Forbidden'}, status=403)
+        today = datetime.date.today()
+        appointments = self.get_queryset().filter(
+            assigned_nurse=nurse,
+            appointment_date=today
+        )
+        serializer = self.get_serializer(appointments, many=True)
+        return Response(serializer.data)
