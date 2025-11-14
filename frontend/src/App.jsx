@@ -18,6 +18,7 @@ import AppointmentForm from "./components/appointments/AppointmentForm.jsx";
 import AppointmentCalendar from "./components/appointments/AppointmentCalendar.jsx";
 import MedicalRecordsList from "./components/records/MedicalRecordsList.jsx";
 import MedicalRecordDetails from "./components/records/MedicalRecordDetails.jsx";
+import MedicalRecordForm from "./components/records/MedicalRecordForm.jsx";
 import PatientAppointments from "./components/patients/PatientAppointments.jsx";
 import PatientRecords from "./components/patients/PatientRecords.jsx";
 import PatientProfile from "./components/patients/PatientProfile.jsx";
@@ -157,6 +158,10 @@ function App() {
                   </PatientDashboard>
                 </ProtectedRoute>
               }
+            />
+            <Route
+              path="/dashboard/doctor/records/new"
+              element={<MedicalRecordForm />}
             />
             <Route
               path="/dashboard/patient/appointments/book"

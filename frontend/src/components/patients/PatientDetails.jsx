@@ -303,14 +303,6 @@ const PatientDetails = () => {
                 <h3 className="text-lg font-semibold text-white">
                   Medical Records
                 </h3>
-                <button
-                  onClick={() =>
-                    navigate(`/dashboard/doctor/patients/${id}/records/new`)
-                  }
-                  className="px-4 py-2 bg-blue-600 hover:bg-blue-700 text-white rounded-lg text-sm"
-                >
-                  Add Record
-                </button>
               </div>
 
               {medicalRecords.length === 0 ? (
@@ -345,7 +337,8 @@ const PatientDetails = () => {
                           </p>
                         </div>
                         <span className="text-xs text-gray-400">
-                          Dr. {record.doctor_name}
+                          Dr. {record.doctor_first_name}{" "}
+                          {record.doctor_last_name}
                         </span>
                       </div>
 
