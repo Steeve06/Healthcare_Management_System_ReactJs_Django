@@ -1,6 +1,8 @@
 import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { appointmentService } from "../../services/appointmentService";
+import Modal from "./Modal.jsx";
+import AppointmentDetails from "./AppointmentDetails.jsx"; 
 import {
   Calendar,
   Plus,
@@ -13,6 +15,7 @@ import {
 } from "lucide-react";
 
 const AppointmentList = () => {
+  const [selectedId, setSelectedId] = useState(null);
   const [appointments, setAppointments] = useState([]);
   const [loading, setLoading] = useState(true);
   const [filterStatus, setFilterStatus] = useState("all");
@@ -325,11 +328,7 @@ const AppointmentList = () => {
                       </button>
                     )}
                     <button
-                      onClick={() =>
-                        navigate(
-                          `/dashboard/doctor/appointments/${appointment.id}`
-                        )
-                      }
+                      onClick={() => setSelectedId(appointment.id)}
                       className="px-3 py-2 bg-blue-600 hover:bg-blue-700 text-white rounded-lg text-sm transition-colors"
                     >
                       View Details
@@ -341,6 +340,12 @@ const AppointmentList = () => {
           </div>
         )}
       </div>
+      <Modal
+        open={selectedId !== null}
+        onClose={() => setSelectedId(null)}
+      >
+        {selectedId && <AppointmentDetails appointmentId={selectedId} />}
+      </Modal>
     </div>
   );
 };

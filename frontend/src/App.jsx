@@ -28,6 +28,7 @@ import NurseSchedule from "./components/nurse/NurseSchedule.jsx";
 import NurseTasksList from "./components/nurse/NurseTaskList.jsx";
 import CreateNurseTask from "./components/nurse/CreateNurseTask.jsx";
 import PatientSignup from "./components/patients/PatientSignup.jsx"; 
+import AppointmentDetails from "./components/appointments/AppointmentDetails.jsx"; 
 
 // Protected Route Component
 const ProtectedRoute = ({ children, allowedRoles }) => {
@@ -196,6 +197,10 @@ function App() {
                   </DoctorDashboard>
                 </ProtectedRoute>
               }
+            />
+            <Route
+              path="/dashboard/doctor/appointments/:appointmentId"
+              element={<AppointmentDetails />}
             />
             <Route
               path="/dashboard/doctor/records"
